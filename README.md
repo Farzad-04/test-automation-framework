@@ -20,7 +20,7 @@ This project combines a sample Spring Boot banking application and a quality-eng
 - Local H2 mode for quick development
 - Docker Compose deployment with PostgreSQL persistence
 - TestNG + Rest Assured API tests
-- Selenium UI tests using Page Objects for registration, login, account creation, and transfers
+- Selenium UI tests using Page Objects, with Cucumber/Gherkin scenarios for registration, account creation, and transfers
 
 ## Run locally
 
@@ -79,6 +79,7 @@ mvn test -Dui.headless=true
 ```
 
 After execution, open `target/e2e-report/index.html` for the E2E results and flow screenshots. Screenshots are saved alongside it in `target/e2e-report/screenshots/`.
+The Cucumber scenarios are in `src/test/resources/features/`; their HTML report is `target/e2e-report/cucumber.html`.
 
 For coverage, test-data practices, and current exclusions, see [TEST-STRATEGY.md](automation-framework/TEST-STRATEGY.md).
 

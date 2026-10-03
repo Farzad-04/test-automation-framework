@@ -3,14 +3,11 @@ package com.banking.ui.tests;
 import com.banking.ui.pages.DashboardPage;
 import com.banking.ui.pages.LoginPage;
 import com.banking.ui.support.BankingApi;
-import com.banking.ui.support.BankingApi.AccountFixture;
 import com.banking.ui.support.BankingApi.UserFixture;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.banking.ui.support.UiDriverFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -23,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,15 +46,7 @@ public class BankingUiTest {
 
     @BeforeMethod
     public void openBrowser() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--window-size=1440,1100", "--disable-gpu",
-                "--no-sandbox", "--disable-dev-shm-usage");
-        if (Boolean.getBoolean("ui.headless")) {
-            options.addArguments("--headless=new");
-        }
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ZERO);
+        driver = UiDriverFactory.create();
         loginPage = new LoginPage(driver).open(System.getProperty("ui.baseUrl", "http://localhost:8080/"));
         dashboard = new DashboardPage(driver);
     }
@@ -89,20 +77,6 @@ public class BankingUiTest {
         screenshots.add(fileName);
     }
 
-    @Test(description = "Registration through the UI creates a checking account and disables transfers without a second account")
-    public void registrationCreatesDefaultCheckingAccount() throws IOException {
-        String email = "ui-register-" + System.nanoTime() + "@example.com";
-        loginPage.openRegistration().register("New", "Customer", email, "UiRegister@123");
-
-        Assert.assertTrue(loginPage.isDashboardVisible(), "Registration should open the dashboard");
-        Assert.assertEquals(dashboard.firstName(), "New");
-        Assert.assertEquals(dashboard.waitForAccountCount("1"), "1");
-        Assert.assertTrue(dashboard.accountCards().get(0).contains("CHECKING"));
-        Assert.assertTrue(dashboard.transferControlsDisabled(),
-                "Transfer controls should remain disabled until a second account exists");
-        captureScreenshot(Reporter.getCurrentTestResult(), "registration-dashboard");
-    }
-
     @Test(description = "A user can sign in and see accounts created through the API")
     public void loginShowsApiCreatedAccounts() throws IOException {
         UserFixture user = bankingApi.createUser();
@@ -129,39 +103,4 @@ public class BankingUiTest {
         captureScreenshot(Reporter.getCurrentTestResult(), "invalid-login");
     }
 
-    @Test(description = "A user can open an account from the dashboard")
-    public void createAccountFromDashboard() throws IOException {
-        UserFixture user = bankingApi.createUser();
-        loginPage.login(user.email(), user.password());
-        Assert.assertTrue(loginPage.isDashboardVisible());
-        Assert.assertEquals(dashboard.waitForAccountCount("1"), "1");
-        captureScreenshot(Reporter.getCurrentTestResult(), "before-account-create");
-
-        dashboard.createAccount("SAVINGS", "150.50");
-
-        Assert.assertEquals(dashboard.waitForAccountCount("2"), "2");
-        Assert.assertEquals(dashboard.totalBalance(), "$150.50");
-        Assert.assertTrue(dashboard.accountCards().stream()
-                .anyMatch(card -> card.contains("SAVINGS") && card.contains("$150.50")));
-        captureScreenshot(Reporter.getCurrentTestResult(), "after-account-create");
-    }
-
-    @Test(description = "A user can transfer funds and see updated balances and activity")
-    public void transferUpdatesBalancesAndActivity() throws IOException {
-        UserFixture user = bankingApi.createUser();
-        AccountFixture source = bankingApi.createAccount(user, "CHECKING", new BigDecimal("250.00"));
-        AccountFixture destination = bankingApi.createAccount(user, "SAVINGS", new BigDecimal("25.00"));
-        loginPage.login(user.email(), user.password());
-        Assert.assertTrue(loginPage.isDashboardVisible());
-        Assert.assertEquals(dashboard.waitForAccountCount("3"), "3");
-        captureScreenshot(Reporter.getCurrentTestResult(), "before-transfer");
-
-        dashboard.transfer(source.id(), destination.id(), "40.00", "UI transfer test");
-
-        Assert.assertEquals(dashboard.totalBalance(), "$275.00");
-        Assert.assertTrue(dashboard.accountCardFor(source.id()).contains("$210.00"));
-        Assert.assertTrue(dashboard.accountCardFor(destination.id()).contains("$65.00"));
-        Assert.assertTrue(dashboard.recentActivity().contains("UI transfer test"));
-        captureScreenshot(Reporter.getCurrentTestResult(), "after-transfer");
-    }
 }

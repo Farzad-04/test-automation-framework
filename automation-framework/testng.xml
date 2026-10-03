@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-current.dtd">
-<suite name="Banking API Test Suite" parallel="false" thread-count="1" verbose="2">
+<suite name="Banking API Test Suite" parallel="none" thread-count="1" verbose="2">
 
     <listeners>
         <listener class-name="com.banking.ui.report.E2eHtmlReporter"/>
@@ -27,6 +27,12 @@
     <test name="Banking UI Tests" verbose="2">
         <classes>
             <class name="com.banking.ui.tests.BankingUiTest"/>
+        </classes>
+    </test>
+
+    <test name="Banking UI BDD Tests" verbose="2">
+        <classes>
+            <class name="com.banking.ui.cucumber.CucumberUiTest"/>
         </classes>
     </test>
 

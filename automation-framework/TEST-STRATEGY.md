@@ -9,7 +9,7 @@ The suite focuses on validating the main customer journeys and the API contracts
 - **Transactions API:** transfers, balance changes, transaction history, and validation for insufficient funds and invalid amounts or accounts.
 - **Browser end-to-end:** registration and the default checking account, successful and failed login, displaying API-created accounts, creating an account from the dashboard, and completing a transfer with updated balances and activity.
 
-API tests use REST Assured to check HTTP status codes and response data. Selenium tests use Page Objects and exercise user-visible behavior in Chrome. UI milestones and failures produce screenshots, which the TestNG listener includes in `target/e2e-report/index.html`.
+API tests use REST Assured to check HTTP status codes and response data. Selenium tests use Page Objects and exercise user-visible behavior in Chrome. Registration, account creation, and transfer journeys are specified as Gherkin features and run through Cucumber's TestNG integration; login behavior remains in the direct TestNG UI tests. Cucumber writes `target/e2e-report/cucumber.html`, including screenshots attached when a scenario fails. The TestNG listener generates `target/e2e-report/index.html` for the remaining UI tests.
 
 ## Test data and environment
 
