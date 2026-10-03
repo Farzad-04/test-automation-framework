@@ -1,0 +1,4 @@
+.env
+.git
+target
+frontend/node_modules
