@@ -44,8 +44,6 @@ docker compose up --build -d
 
 Open <http://localhost:8080/>. PostgreSQL data is kept in the named `banking-data` volume across restarts. Stop the services with `docker compose down`; keep the volume to preserve data. **Do not use sample secrets or expose this demo publicly without reviewing its security and operational requirements.**
 
-For a step-by-step Docker-based screen-recorded walkthrough, see [DOCKER-DEMO-GUIDE.md](DOCKER-DEMO-GUIDE.md).
-
 ## Run the API and UI tests
 
 The API and Selenium UI suites expect the app to be running on port 8080. The UI suite opens a visible Chrome window by default and resolves ChromeDriver automatically. Set `-Dui.headless=true` to run without a visible window (as CI does). Start the app in one terminal:
@@ -81,5 +79,4 @@ For coverage, test-data practices, and current exclusions, see [TEST-STRATEGY.md
 - `src/test/java/com/banking/api` — API automation tests
 - `src/test/java/com/banking/ui` — Selenium Page Objects and UI tests
 - `TEST-STRATEGY.md` — test coverage, test-data approach, and scope
-- `DOCKER-DEMO-GUIDE.md` — Docker-based demonstration video instructions
 - `Dockerfile` and `docker-compose.yml` — container build and local deployment
