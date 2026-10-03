@@ -1,6 +1,6 @@
 # Northstar Bank · Test Automation Framework
 
-A Spring Boot banking demo with JWT authentication, account management, transfers, a responsive browser dashboard, and a TestNG/Rest Assured API suite.
+A Spring Boot banking demo with JWT authentication, account management, transfers, a responsive browser dashboard, TestNG/Rest Assured API tests, and Selenium UI tests with Cucumber/Gherkin.
 
 > This is an educational demo, not a real banking service. Do not use it for real money or sensitive personal information.
 
@@ -70,8 +70,7 @@ cd automation-framework
 mvn test
 ```
 
-Maven uses the root `testng.xml` suite, which runs the authentication, account management, and transaction API tests.
-The same suite also runs the browser-based UI tests. Override the UI browser URL with `-Dui.baseUrl=http://localhost:8080/` and the API URL used by UI-test fixtures with `-Dapi.baseUrl=http://localhost:8080/api` if needed. The API tests use `http://localhost:8080/api`.
+Maven uses the root `testng.xml` suite, which runs the authentication, account management, and transaction API tests. The suite also runs browser UI tests: direct TestNG coverage for login and Cucumber scenarios for registration, account creation, and transfers. Cucumber uses TestNG and the same Selenium Page Objects and API-backed test fixtures. Override the UI browser URL with `-Dui.baseUrl=http://localhost:8080/` and the API URL used by UI-test fixtures with `-Dapi.baseUrl=http://localhost:8080/api` if needed. The API tests use `http://localhost:8080/api`.
 By default, Selenium launches visible Chrome windows on your desktop. To run in headless mode instead:
 
 ```bash
@@ -79,7 +78,7 @@ mvn test -Dui.headless=true
 ```
 
 After execution, open `target/e2e-report/index.html` for the E2E results and flow screenshots. Screenshots are saved alongside it in `target/e2e-report/screenshots/`.
-The Cucumber scenarios are in `src/test/resources/features/`; their HTML report is `target/e2e-report/cucumber.html`.
+The Cucumber feature files are in `src/test/resources/features/`, with their Java step definitions in `src/test/java/com/banking/ui/cucumber/`. Their HTML report is `target/e2e-report/cucumber.html`.
 
 For coverage, test-data practices, and current exclusions, see [TEST-STRATEGY.md](automation-framework/TEST-STRATEGY.md).
 
@@ -91,5 +90,6 @@ For coverage, test-data practices, and current exclusions, see [TEST-STRATEGY.md
 - `automation-framework/src/main/resources/application-prod.properties` — PostgreSQL deployment profile
 - `automation-framework/src/test/java/com/banking/api` — API automation tests
 - `automation-framework/src/test/java/com/banking/ui` — Selenium Page Objects and UI tests
+- `automation-framework/src/test/resources/features` — Gherkin feature scenarios for dashboard journeys
 - `automation-framework/TEST-STRATEGY.md` — test coverage, test-data approach, and scope
 - `automation-framework/Dockerfile` and `docker-compose.yml` — container build and local deployment
