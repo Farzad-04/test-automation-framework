@@ -59,7 +59,7 @@ mvn test
 ```
 
 Maven uses the root `testng.xml` suite, which runs the authentication, account management, and transaction API tests.
-The same suite also runs the browser-based UI tests. Override their base URLs with `-Dui.baseUrl=http://localhost:8080/` and `-Dapi.baseUrl=http://localhost:8080/api` if needed.
+The same suite also runs the browser-based UI tests. Override the UI browser URL with `-Dui.baseUrl=http://localhost:8080/` and the API URL used by UI-test fixtures with `-Dapi.baseUrl=http://localhost:8080/api` if needed. The API tests use `http://localhost:8080/api`.
 By default, Selenium launches visible Chrome windows on your desktop. To run in headless mode instead:
 
 ```bash
@@ -67,6 +67,8 @@ mvn test -Dui.headless=true
 ```
 
 After execution, open `target/e2e-report/index.html` for the E2E results and flow screenshots. Screenshots are saved alongside it in `target/e2e-report/screenshots/`.
+
+For coverage, test-data practices, and current exclusions, see [TEST-STRATEGY.md](TEST-STRATEGY.md).
 
 ## Project structure
 
@@ -76,4 +78,5 @@ After execution, open `target/e2e-report/index.html` for the E2E results and flo
 - `src/main/resources/application-prod.properties` — PostgreSQL deployment profile
 - `src/test/java/com/banking/api` — API automation tests
 - `src/test/java/com/banking/ui` — Selenium Page Objects and UI tests
+- `TEST-STRATEGY.md` — test coverage, test-data approach, and scope
 - `Dockerfile` and `docker-compose.yml` — container build and local deployment
