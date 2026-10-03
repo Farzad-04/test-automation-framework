@@ -20,4 +20,10 @@
         </classes>
     </test>
 
+    <test name="Banking UI Tests" verbose="2">
+        <classes>
+            <class name="com.banking.ui.tests.BankingUiTest"/>
+        </classes>
+    </test>
+
 </suite>

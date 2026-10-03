@@ -12,6 +12,7 @@ A Spring Boot banking demo with JWT authentication, account management, transfer
 - Local H2 mode for quick development
 - Docker Compose deployment with PostgreSQL persistence
 - TestNG + Rest Assured API tests
+- Selenium UI tests using Page Objects for registration, login, account creation, and transfers
 
 ## Run locally
 
@@ -41,7 +42,7 @@ Open <http://localhost:8080/>. PostgreSQL data is kept in the named `banking-dat
 
 ## Run the API tests
 
-The API tests expect the app to be running on port 8080. Start the app in one terminal:
+The API and Selenium UI suites expect the app to be running on port 8080. UI tests use headless Chrome; ChromeDriver is resolved automatically. Start the app in one terminal:
 
 ```bash
 mvn spring-boot:run
@@ -54,6 +55,7 @@ mvn test
 ```
 
 Maven uses the root `testng.xml` suite, which runs the authentication, account management, and transaction API tests.
+The same suite also runs the browser-based UI tests. Override their base URLs with `-Dui.baseUrl=http://localhost:8080/` and `-Dapi.baseUrl=http://localhost:8080/api` if needed.
 
 ## Project structure
 
@@ -61,4 +63,5 @@ Maven uses the root `testng.xml` suite, which runs the authentication, account m
 - `src/main/resources/static` — browser dashboard assets
 - `src/main/resources/application-prod.properties` — PostgreSQL deployment profile
 - `src/test/java/com/banking/api` — API automation tests
+- `src/test/java/com/banking/ui` — Selenium Page Objects and UI tests
 - `Dockerfile` and `docker-compose.yml` — container build and local deployment
