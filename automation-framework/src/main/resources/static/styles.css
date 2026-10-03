@@ -1,0 +1,253 @@
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --panel-alt: #eef4ff;
+  --text: #11263d;
+  --muted: #6b7c95;
+  --primary: #2457d6;
+  --primary-dark: #163eaf;
+  --success: #1b9a5a;
+  --warning: #ffb648;
+  --danger: #d54949;
+  --border: #dfe7f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #eef5ff, #f8fafd);
+  color: var(--text);
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.2rem;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+button.ghost {
+  background: #edf2ff;
+  color: var(--primary-dark);
+}
+
+button.ghost:hover {
+  background: #dde8ff;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+.layout {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(35, 58, 116, 0.08);
+  padding: 1.4rem;
+}
+
+.tabs {
+  display: inline-flex;
+  background: var(--panel-alt);
+  border-radius: 12px;
+  padding: 0.32rem;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  background: transparent;
+  color: var(--text);
+  padding: 0.72rem 1rem;
+  border-radius: 8px;
+}
+
+.tab.active {
+  background: white;
+  box-shadow: 0 4px 18px rgba(36, 87, 214, 0.12);
+}
+
+.auth-form {
+  display: none;
+  gap: 1rem;
+}
+
+.auth-form.active {
+  display: grid;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+input, select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fbfcff;
+  padding: 0.85rem 0.9rem;
+  color: var(--text);
+}
+
+.summary-grid, .card-grid, .lists {
+  display: grid;
+  gap: 1rem;
+}
+
+.summary-grid {
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+}
+
+.stat-card {
+  background: #f8faff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.stat-card.accent {
+  background: linear-gradient(135deg, #eef4ff, #dfeaff);
+}
+
+.stat-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.stat-card strong {
+  font-size: 1.2rem;
+}
+
+.card-grid {
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  margin-top: 1rem;
+}
+
+.mini-form {
+  display: grid;
+  gap: 0.9rem;
+  background: #f8faff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.lists {
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  margin-top: 1rem;
+}
+
+.list-panel {
+  background: #f8faff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.account-item, .history-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.account-item strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.24rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+.badge.success {
+  background: rgba(27, 154, 90, 0.1);
+  color: var(--success);
+}
+
+.badge.warning {
+  background: rgba(255, 182, 72, 0.15);
+  color: #a05f00;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.toast {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  background: #11263d;
+  color: white;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 760px) {
+  .two-col, .summary-grid, .card-grid, .lists {
+    grid-template-columns: 1fr;
+  }
+}

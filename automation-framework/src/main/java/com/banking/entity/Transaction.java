@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Table(name = "transactions")
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -34,6 +33,13 @@ public class Transaction {
     private LocalDateTime transactionDate = LocalDateTime.now();
 
     private LocalDateTime completedDate;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.transactionDate == null) {
+            this.transactionDate = LocalDateTime.now();
+        }
+    }
 
     public Long getId() {
         return id;

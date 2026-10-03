@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banking Portal</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Banking Portal</p>
+          <h1>Northstar Bank</h1>
+        </div>
+        <button id="logoutBtn" class="ghost hidden">Logout</button>
+      </header>
+
+      <main class="layout">
+        <section id="authPanel" class="panel">
+          <div class="tabs">
+            <button class="tab active" data-tab="login">Login</button>
+            <button class="tab" data-tab="register">Register</button>
+          </div>
+
+          <form id="loginForm" class="auth-form active">
+            <h2>Welcome back</h2>
+            <label>
+              Email
+              <input type="email" id="loginEmail" required />
+            </label>
+            <label>
+              Password
+              <input type="password" id="loginPassword" required />
+            </label>
+            <button type="submit">Login</button>
+          </form>
+
+          <form id="registerForm" class="auth-form">
+            <h2>Create account</h2>
+            <div class="two-col">
+              <label>
+                First name
+                <input type="text" id="registerFirstName" required />
+              </label>
+              <label>
+                Last name
+                <input type="text" id="registerLastName" required />
+              </label>
+            </div>
+            <label>
+              Email
+              <input type="email" id="registerEmail" required />
+            </label>
+            <label>
+              Password
+              <input type="password" id="registerPassword" required />
+            </label>
+            <button type="submit">Register</button>
+          </form>
+        </section>
+
+        <section id="dashboard" class="panel hidden">
+          <div class="summary-grid">
+            <div class="stat-card accent">
+              <span>Connected user</span>
+              <strong id="userLabel">-</strong>
+            </div>
+            <div class="stat-card">
+              <span>Accounts</span>
+              <strong id="accountCount">0</strong>
+            </div>
+          </div>
+
+          <div class="card-grid">
+            <form id="accountForm" class="mini-form">
+              <h3>Create account</h3>
+              <label>
+                Account type
+                <select id="accountType">
+                  <option value="CHECKING">CHECKING</option>
+                  <option value="SAVINGS">SAVINGS</option>
+                  <option value="MONEY_MARKET">MONEY_MARKET</option>
+                </select>
+              </label>
+              <label>
+                Initial balance
+                <input type="number" id="initialBalance" min="0" step="0.01" value="0" required />
+              </label>
+              <button type="submit">Add account</button>
+            </form>
+
+            <form id="transferForm" class="mini-form">
+              <h3>Transfer funds</h3>
+              <label>
+                From account
+                <input type="number" id="fromAccountId" required />
+              </label>
+              <label>
+                To account
+                <input type="number" id="toAccountId" required />
+              </label>
+              <label>
+                Amount
+                <input type="number" id="transferAmount" min="0.01" step="0.01" required />
+              </label>
+              <label>
+                Description
+                <input type="text" id="transferDescription" value="Transfer" />
+              </label>
+              <button type="submit">Transfer</button>
+            </form>
+          </div>
+
+          <div class="lists">
+            <div class="list-panel">
+              <h3>Your accounts</h3>
+              <div id="accountList" class="list"></div>
+            </div>
+            <div class="list-panel">
+              <h3>Recent activity</h3>
+              <div id="historyList" class="list"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
