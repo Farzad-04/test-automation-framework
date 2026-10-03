@@ -13,9 +13,9 @@ API tests use REST Assured to check HTTP status codes and response data. Seleniu
 
 ## Test data and environment
 
-Run the Spring Boot application locally on port 8080 before running `mvn test`. Tests use the running application's database and can create users, accounts, and transactions. The default local profile uses an in-memory H2 database; restarting the application clears that data.
+Run the Spring Boot application on port 8080 before running `mvn test`. It can run locally with the default in-memory H2 database or with Docker Compose and PostgreSQL, as described in the README. Tests connect to the application at `http://localhost:8080` and can create users, accounts, and transactions. Restarting the local H2 app clears its data; Docker Compose uses persistent PostgreSQL storage, so test data may remain between runs.
 
-Test users use synthetic names, fixed test-only passwords, and unique email addresses (timestamp-based for API tests and UUID-based for UI fixtures) to avoid collisions. API tests create their own users; UI tests use the test API helper to prepare accounts where a scenario needs pre-existing data. No real customer or banking data is required. Test records are not individually deleted, so use the disposable local H2 database rather than a shared or production database.
+Test users use synthetic names, fixed test-only passwords, and unique email addresses (timestamp-based for API tests and UUID-based for UI fixtures) to avoid collisions. API tests create their own users; UI tests use the test API helper to prepare accounts where a scenario needs pre-existing data. No real customer or banking data is required. Test records are not individually deleted, so use a disposable local H2 database or Docker database rather than a shared or production database.
 
 The default run opens Chrome visibly. Add `-Dui.headless=true` for headless execution. UI browser and fixture API URLs can be configured with `-Dui.baseUrl=...` and `-Dapi.baseUrl=...`; the API test base URL is `http://localhost:8080/api`.
 
