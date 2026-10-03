@@ -53,6 +53,8 @@ Then run the suite in a second terminal:
 mvn test
 ```
 
+Maven uses the root `testng.xml` suite, which runs the authentication, account management, and transaction API tests.
+
 ## Project structure
 
 - `src/main/java/com/banking` — Spring Boot API and application services
