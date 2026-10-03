@@ -135,12 +135,12 @@ input:focus, select:focus { border-color: #719688; box-shadow: 0 0 0 3px rgba(23
 .status-badge::before { width: 5px; height: 5px; border-radius: 50%; background: #58a575; content: ""; }
 .empty-state { padding: 25px 12px; color: #829087; font-size: 11px; line-height: 1.7; text-align: center; }
 .action-column { display: grid; gap: 14px; }
-.action-card { padding: 18px; }
+.action-card { display: grid; gap: 8px; padding: 18px; }
 .action-card .section-heading { margin-bottom: 13px; }
 .section-heading.compact h2 { font-size: 14px; }
 .action-icon { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 9px; background: #edf5ef; color: #36765a; font-size: 17px; }
 .action-icon.soft { background: #f8f1e4; color: #af812f; }
-.action-card label { margin: 5px 0 -6px; font-size: 9px; }
+.action-card label { margin: 0; font-size: 9px; }
 .action-card select, .action-card input { min-height: 40px; font-size: 10px; }
 .amount-input { position: relative; }
 .amount-input > span { position: absolute; top: 50%; left: 13px; transform: translateY(-50%); color: #819087; font-size: 11px; }
