@@ -4,6 +4,10 @@ A Spring Boot banking demo with JWT authentication, account management, transfer
 
 > This is an educational demo, not a real banking service. Do not use it for real money or sensitive personal information.
 
+## Project scope
+
+This project combines a sample Spring Boot banking application and a quality-engineering automation suite. The demo supports user registration and login, JWT-protected account management, and transfers through a React dashboard and REST API. The tests cover authentication, account and transaction API behavior, and key browser journeys such as registration, login, account creation, and transfers. It is intended to demonstrate application and test-automation practices—not to connect to real financial institutions or certify production readiness. See [TEST-STRATEGY.md](automation-framework/TEST-STRATEGY.md) for detailed coverage, test-data practices, and exclusions.
+
 ## Features
 
 - JWT-protected account and transfer APIs
