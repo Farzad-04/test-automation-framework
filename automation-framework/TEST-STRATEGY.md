@@ -7,9 +7,9 @@ The suite focuses on validating the main customer journeys and the API contracts
 - **Authentication API:** registration and login, JWT responses and protected access, plus invalid or missing registration data, duplicate email, and invalid credentials.
 - **Accounts API:** account creation and retrieval, account types and balances, invalid account data, missing authorization, and unknown account IDs.
 - **Transactions API:** transfers, balance changes, transaction history, and validation for insufficient funds and invalid amounts or accounts.
-- **Browser end-to-end:** registration and the default checking account, successful and failed login, displaying API-created accounts, creating an account from the dashboard, and completing a transfer with updated balances and activity.
+- **Browser end-to-end:** successful and failed login, displaying API-created accounts, registration with a default checking account, opening a savings account, and transferring funds with updated balances and recent activity.
 
-API tests use REST Assured to check HTTP status codes and response data. Selenium tests use Page Objects and exercise user-visible behavior in Chrome. Registration, account creation, and transfer journeys are specified as Gherkin features and run through Cucumber's TestNG integration; login behavior remains in the direct TestNG UI tests. Cucumber writes `target/e2e-report/cucumber.html`, including screenshots attached when a scenario fails. The TestNG listener generates `target/e2e-report/index.html` for the remaining UI tests.
+API tests use REST Assured to check HTTP status codes and response data. Selenium tests use Page Objects and exercise user-visible behavior in Chrome. Gherkin scenarios in `src/test/resources/features/` cover registration, account creation, and transfers; Cucumber's TestNG runner executes them using step definitions in `com.banking.ui.cucumber`. The scenarios reuse the existing Page Objects and API-backed fixture helper. Successful and failed login checks remain direct TestNG UI tests. Cucumber writes `target/e2e-report/cucumber.html` and attaches a browser screenshot when a scenario fails. The TestNG listener generates `target/e2e-report/index.html` for the direct TestNG UI tests.
 
 ## Test data and environment
 
