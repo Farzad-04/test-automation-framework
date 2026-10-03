@@ -214,6 +214,7 @@ function saveSession(payload) {
 
 async function handleAuth(event, endpoint) {
   event.preventDefault();
+  const form = event.currentTarget;
   const isLogin = endpoint.endsWith('/login');
   const body = isLogin
     ? { email: $('#loginEmail').value.trim(), password: $('#loginPassword').value }
@@ -228,7 +229,7 @@ async function handleAuth(event, endpoint) {
     const payload = await readResponse(response);
     if (!response.ok) throw new Error(payload.error || payload.message || (isLogin ? 'Sign in failed.' : 'Registration failed.'));
     if (!payload.token) throw new Error('The server did not return a sign-in token.');
-    event.currentTarget.reset();
+    form.reset();
     saveSession(payload);
     showToast(isLogin ? 'Welcome back.' : 'Your account is ready.');
   } catch (error) {
@@ -238,6 +239,7 @@ async function handleAuth(event, endpoint) {
 
 async function handleCreateAccount(event) {
   event.preventDefault();
+  const form = event.currentTarget;
   const payload = {
     accountType: $('#accountType').value,
     initialBalance: Number($('#initialBalance').value || 0)
@@ -246,7 +248,7 @@ async function handleCreateAccount(event) {
     const response = await apiFetch('/api/accounts', { method: 'POST', body: JSON.stringify(payload) });
     const result = await readResponse(response);
     if (!response.ok) throw new Error(result.error || result.message || 'Unable to create account.');
-    event.currentTarget.reset();
+    form.reset();
     $('#initialBalance').value = '0';
     await loadAccounts();
     showToast('Your new account is ready.');
@@ -257,6 +259,7 @@ async function handleCreateAccount(event) {
 
 async function handleTransfer(event) {
   event.preventDefault();
+  const form = event.currentTarget;
   const fromAccountId = $('#fromAccountId').value;
   const toAccountId = $('#toAccountId').value;
   if (!fromAccountId || !toAccountId || fromAccountId === toAccountId) {
@@ -273,7 +276,7 @@ async function handleTransfer(event) {
     const response = await apiFetch('/api/transactions/transfer', { method: 'POST', body: JSON.stringify(payload) });
     const result = await readResponse(response);
     if (!response.ok) throw new Error(result.error || result.message || 'Transfer failed.');
-    event.currentTarget.reset();
+    form.reset();
     await loadAccounts();
     showToast('Transfer complete.');
   } catch (error) {
