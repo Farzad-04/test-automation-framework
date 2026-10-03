@@ -1,49 +1,62 @@
-# Banking Test Automation Framework
+# Northstar Bank · Test Automation Framework
 
-A Spring Boot banking application with JWT-based authentication, account management, and transfer workflows, complemented by a lightweight browser UI and automated API tests.
+A Spring Boot banking demo with JWT authentication, account management, transfers, a responsive browser dashboard, and a TestNG/Rest Assured API suite.
+
+> This is an educational demo, not a real banking service. Do not use it for real money or sensitive personal information.
 
 ## Features
 
-- User registration and login with JWT authentication
-- Protected account creation and retrieval routes
-- Funds transfer and transaction history endpoints
-- H2 in-memory database for local execution
-- Simple static dashboard for browser-based interaction
-- TestNG + Rest Assured API validation suite
+- JWT-protected account and transfer APIs
+- Sign-in and registration from the web dashboard
+- Account balances, recent transfer activity, and account creation
+- Local H2 mode for quick development
+- Docker Compose deployment with PostgreSQL persistence
+- TestNG + Rest Assured API tests
 
 ## Run locally
 
+Requires Java 21 and Maven.
+
 ```bash
-cd automation-framework
 mvn spring-boot:run
 ```
 
-Then open:
+Open <http://localhost:8080/> and register a demo user. The default H2 database is in-memory, so its data resets when the application restarts.
 
-- http://localhost:8080/
+## Run with Docker Compose
 
-## Test suite
-
-The application must be running before the API suite executes.
+Requires Docker with the Compose plugin. From this directory, create a local environment file and set unique secrets:
 
 ```bash
-cd automation-framework
+cp .env.example .env
+```
+
+Replace `DB_PASSWORD` and `APP_JWT_SECRET` in `.env` with generated values (for example, use `openssl rand -base64 32` separately for each). Then start the app and database:
+
+```bash
+docker compose up --build -d
+```
+
+Open <http://localhost:8080/>. PostgreSQL data is kept in the named `banking-data` volume across restarts. Stop the services with `docker compose down`; keep the volume to preserve data. **Do not use sample secrets or expose this demo publicly without reviewing its security and operational requirements.**
+
+## Run the API tests
+
+The API tests expect the app to be running on port 8080. Start the app in one terminal:
+
+```bash
 mvn spring-boot:run
 ```
 
-In a second terminal:
+Then run the suite in a second terminal:
 
 ```bash
-cd automation-framework
 mvn test
 ```
 
 ## Project structure
 
-- `src/main/java/com/banking` — backend application code
-- `src/main/resources/static` — browser UI assets
+- `src/main/java/com/banking` — Spring Boot API and application services
+- `src/main/resources/static` — browser dashboard assets
+- `src/main/resources/application-prod.properties` — PostgreSQL deployment profile
 - `src/test/java/com/banking/api` — API automation tests
-
-## Notes
-
-The project is designed as a demo banking platform and QA automation exercise, with a front-end dashboard that calls the same API used by the backend test suite.
+- `Dockerfile` and `docker-compose.yml` — container build and local deployment

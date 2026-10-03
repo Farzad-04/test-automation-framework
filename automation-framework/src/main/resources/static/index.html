@@ -3,131 +3,148 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Banking Portal</title>
+    <meta name="theme-color" content="#102a26" />
+    <meta name="description" content="A clear, simple place to manage your Northstar Bank accounts." />
+    <title>Northstar Bank | Your money, in motion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Banking Portal</p>
-          <h1>Northstar Bank</h1>
+    <section id="authPanel" class="auth-screen">
+      <div class="auth-story">
+        <a class="brand brand-light" href="/" aria-label="Northstar Bank home">
+          <span class="brand-mark">N</span>
+          <span>NORTHSTAR <small>BANK</small></span>
+        </a>
+        <div class="story-copy">
+          <p class="eyebrow">Banking, with a little more clarity</p>
+          <h1>Your money.<br />Moving forward.</h1>
+          <p>One thoughtful place to keep track of your accounts and move money with confidence.</p>
         </div>
-        <button id="logoutBtn" class="ghost hidden">Logout</button>
-      </header>
-
-      <main class="layout">
-        <section id="authPanel" class="panel">
-          <div class="tabs">
-            <button class="tab active" data-tab="login">Login</button>
-            <button class="tab" data-tab="register">Register</button>
+        <div class="story-foot"><span class="status-dot"></span> Secure access to your finances</div>
+      </div>
+      <div class="auth-side">
+        <div class="auth-card">
+          <div class="mobile-brand brand">
+            <span class="brand-mark">N</span><span>NORTHSTAR <small>BANK</small></span>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Account access">
+            <button class="tab active" type="button" data-tab="login" role="tab" aria-selected="true">Sign in</button>
+            <button class="tab" type="button" data-tab="register" role="tab" aria-selected="false">Create account</button>
           </div>
 
           <form id="loginForm" class="auth-form active">
-            <h2>Welcome back</h2>
-            <label>
-              Email
-              <input type="email" id="loginEmail" required />
-            </label>
-            <label>
-              Password
-              <input type="password" id="loginPassword" required />
-            </label>
-            <button type="submit">Login</button>
+            <div class="form-heading">
+              <p class="eyebrow">Welcome back</p>
+              <h2>Sign in to your account</h2>
+              <p>Your finances are right where you left them.</p>
+            </div>
+            <label for="loginEmail">Email address</label>
+            <input type="email" id="loginEmail" autocomplete="email" placeholder="you@example.com" required />
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" autocomplete="current-password" placeholder="Enter your password" required />
+            <button class="button button-primary button-full" type="submit">Sign in <span aria-hidden="true">→</span></button>
           </form>
 
           <form id="registerForm" class="auth-form">
-            <h2>Create account</h2>
+            <div class="form-heading">
+              <p class="eyebrow">A fresh start</p>
+              <h2>Open your account</h2>
+              <p>It only takes a moment to get started.</p>
+            </div>
             <div class="two-col">
-              <label>
-                First name
-                <input type="text" id="registerFirstName" required />
-              </label>
-              <label>
-                Last name
-                <input type="text" id="registerLastName" required />
-              </label>
+              <div><label for="registerFirstName">First name</label><input type="text" id="registerFirstName" autocomplete="given-name" placeholder="First name" required /></div>
+              <div><label for="registerLastName">Last name</label><input type="text" id="registerLastName" autocomplete="family-name" placeholder="Last name" required /></div>
             </div>
-            <label>
-              Email
-              <input type="email" id="registerEmail" required />
-            </label>
-            <label>
-              Password
-              <input type="password" id="registerPassword" required />
-            </label>
-            <button type="submit">Register</button>
+            <label for="registerEmail">Email address</label>
+            <input type="email" id="registerEmail" autocomplete="email" placeholder="you@example.com" required />
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required />
+            <button class="button button-primary button-full" type="submit">Create account <span aria-hidden="true">→</span></button>
           </form>
+          <p class="auth-note">Your information is protected with secure sign-in.</p>
+        </div>
+      </div>
+    </section>
+
+    <div id="dashboard" class="dashboard hidden">
+      <aside class="sidebar">
+        <a class="brand brand-light" href="/" aria-label="Northstar Bank home">
+          <span class="brand-mark">N</span><span>NORTHSTAR <small>BANK</small></span>
+        </a>
+        <p class="side-label">YOUR MONEY</p>
+        <a class="side-link active" href="#overview"><span class="side-icon">⌂</span> Overview</a>
+        <a class="side-link" href="#accounts"><span class="side-icon">▤</span> Accounts</a>
+        <a class="side-link" href="#activity"><span class="side-icon">↗</span> Activity</a>
+        <div class="sidebar-bottom">
+          <div class="help-card"><span class="help-icon">?</span><strong>Here for you</strong><p>This demo keeps your banking tools in one simple place.</p></div>
+          <div class="profile">
+            <div id="userAvatar" class="avatar">N</div>
+            <div class="profile-copy"><strong id="userLabel">Your account</strong><span>Personal banking</span></div>
+            <button id="logoutBtn" class="icon-button" type="button" aria-label="Sign out" title="Sign out">↗</button>
+          </div>
+        </div>
+      </aside>
+
+      <main id="overview" class="main-content">
+        <header class="page-header">
+          <div><p id="todayLabel" class="eyebrow"></p><h1>Good to see you, <span id="firstNameLabel">there</span></h1><p class="page-subtitle">Here’s what’s happening with your money.</p></div>
+          <button id="refreshBtn" class="button button-outline" type="button"><span aria-hidden="true">↻</span> Refresh</button>
+        </header>
+
+        <section class="overview-grid" aria-label="Account summary">
+          <article class="balance-card">
+            <div class="balance-top"><span>Total balance</span><span class="balance-symbol" aria-hidden="true">$</span></div>
+            <strong id="totalBalance">$0.00</strong>
+            <p>Across <span id="accountCount">0</span> <span id="accountWord">accounts</span></p>
+            <div class="balance-decoration" aria-hidden="true"></div>
+          </article>
+          <article class="metric-card"><div class="metric-icon green">▤</div><span class="metric-label">Your accounts</span><strong id="accountMetric">0</strong><p>Active banking accounts</p></article>
+          <article class="metric-card"><div class="metric-icon gold">↗</div><span class="metric-label">Recent activity</span><strong id="activityCount">0</strong><p>Transactions across your accounts</p></article>
         </section>
 
-        <section id="dashboard" class="panel hidden">
-          <div class="summary-grid">
-            <div class="stat-card accent">
-              <span>Connected user</span>
-              <strong id="userLabel">-</strong>
-            </div>
-            <div class="stat-card">
-              <span>Accounts</span>
-              <strong id="accountCount">0</strong>
-            </div>
+        <section class="content-grid">
+          <div id="accounts" class="surface accounts-surface">
+            <div class="section-heading"><div><p class="eyebrow">Your money, organized</p><h2>Your accounts</h2></div><span id="accountCountPill" class="count-pill">0 accounts</span></div>
+            <div id="accountList" class="account-list"></div>
           </div>
 
-          <div class="card-grid">
-            <form id="accountForm" class="mini-form">
-              <h3>Create account</h3>
-              <label>
-                Account type
-                <select id="accountType">
-                  <option value="CHECKING">CHECKING</option>
-                  <option value="SAVINGS">SAVINGS</option>
-                  <option value="MONEY_MARKET">MONEY_MARKET</option>
-                </select>
-              </label>
-              <label>
-                Initial balance
-                <input type="number" id="initialBalance" min="0" step="0.01" value="0" required />
-              </label>
-              <button type="submit">Add account</button>
+          <div class="action-column">
+            <form id="transferForm" class="surface action-card">
+              <div class="section-heading compact"><div><p class="eyebrow">Move money</p><h2>Make a transfer</h2></div><span class="action-icon">↗</span></div>
+              <label for="fromAccountId">From account</label>
+              <select id="fromAccountId" required><option value="">Choose an account</option></select>
+              <label for="toAccountId">To account</label>
+              <select id="toAccountId" required><option value="">Choose an account</option></select>
+              <label for="transferAmount">Amount</label>
+              <div class="amount-input"><span>$</span><input type="number" id="transferAmount" min="0.01" step="0.01" placeholder="0.00" required /></div>
+              <label for="transferDescription">Note <span class="optional">(optional)</span></label>
+              <input type="text" id="transferDescription" maxlength="120" placeholder="What’s this for?" />
+              <button class="button button-primary button-full" type="submit">Review transfer <span aria-hidden="true">→</span></button>
             </form>
 
-            <form id="transferForm" class="mini-form">
-              <h3>Transfer funds</h3>
-              <label>
-                From account
-                <input type="number" id="fromAccountId" required />
-              </label>
-              <label>
-                To account
-                <input type="number" id="toAccountId" required />
-              </label>
-              <label>
-                Amount
-                <input type="number" id="transferAmount" min="0.01" step="0.01" required />
-              </label>
-              <label>
-                Description
-                <input type="text" id="transferDescription" value="Transfer" />
-              </label>
-              <button type="submit">Transfer</button>
+            <form id="accountForm" class="surface action-card open-account-card">
+              <div class="section-heading compact"><div><p class="eyebrow">Make room to grow</p><h2>Open an account</h2></div><span class="action-icon soft">＋</span></div>
+              <label for="accountType">Account type</label>
+              <select id="accountType"><option value="CHECKING">Checking</option><option value="SAVINGS">Savings</option><option value="MONEY_MARKET">Money market</option></select>
+              <label for="initialBalance">Starting balance</label>
+              <div class="amount-input"><span>$</span><input type="number" id="initialBalance" min="0" step="0.01" value="0" required /></div>
+              <button class="button button-dark button-full" type="submit">Create account <span aria-hidden="true">→</span></button>
             </form>
-          </div>
-
-          <div class="lists">
-            <div class="list-panel">
-              <h3>Your accounts</h3>
-              <div id="accountList" class="list"></div>
-            </div>
-            <div class="list-panel">
-              <h3>Recent activity</h3>
-              <div id="historyList" class="list"></div>
-            </div>
           </div>
         </section>
+
+        <section id="activity" class="surface activity-surface">
+          <div class="section-heading"><div><p class="eyebrow">The latest</p><h2>Recent activity</h2></div><span class="activity-caption">Across all your accounts</span></div>
+          <div id="historyList" class="activity-list"></div>
+        </section>
+        <footer class="page-footer">Northstar Bank <span>·</span> A banking demo project</footer>
       </main>
     </div>
 
-    <div id="toast" class="toast hidden"></div>
-
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
     <script src="/app.js"></script>
   </body>
 </html>

@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -13,17 +14,20 @@ import java.util.Date;
 
 @Component
 public class JwtTokenUtil {
-    private static final String SECRET_KEY = "banking-app-secret-key-change-in-production-1234567890";
     private static final long TOKEN_EXPIRATION = 86_400_000L;
 
-    private static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    private final SecretKey key;
+
+    public JwtTokenUtil(@Value("${app.jwt.secret}") String secret) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(Long userId) {
         return Jwts.builder()
                 .subject(userId.toString())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION))
-                .signWith(KEY)
+                .signWith(key)
                 .compact();
     }
 
@@ -37,7 +41,7 @@ public class JwtTokenUtil {
 
     public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
-                .verifyWith(KEY)
+                .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -46,7 +50,7 @@ public class JwtTokenUtil {
 
     public boolean isTokenValid(String token) {
         try {
-            Jwts.parser().verifyWith(KEY).build().parseSignedClaims(token);
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
             return true;
         } catch (Exception ex) {
             return false;
